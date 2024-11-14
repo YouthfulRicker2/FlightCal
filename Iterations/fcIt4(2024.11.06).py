@@ -1,9 +1,9 @@
-"""This is FlightCal.
+"""FlightCal - A program to calculate flight costs based on client details.
 
-The program calculates the cost of the flight using the age, destination,
-and class (flight-wise) of the customer, as well as the number of seats
-remaining, and then provides a simple copy-pastable email for the agent
-to send.
+This program calculates the cost of a flight based on the destination,
+client's age, seat class, and remaining seats, then generates a formatted 
+email for the agent. It also allows the user to store client data in an 
+XML file and retrieve it later.
 """
 
 import os
@@ -11,10 +11,13 @@ import xml.etree.ElementTree as ET
 
 
 def base_price_resolver(destination):
-    """Provide the initial price of the flight based on the destination.
+    """Determine the base price of the flight based on the destination.
 
-    This function returns the base price depending on where the flight is
-    headed.
+    Args:
+        destination (str): The destination city.
+
+    Returns:
+        int: The base price of the flight in dollars.
     """
     price = 0
     if destination == "Auckland":
@@ -27,7 +30,14 @@ def base_price_resolver(destination):
 
 
 def class_resolver(seat_class):
-    """Provide the multiplication variable based on the class of the seat."""
+    """Return the multiplier for the flight class.
+
+    Args:
+        seat_class (str): The class of the seat (e.g., "Economy", "Business").
+
+    Returns:
+        float: The multiplier for the base price based on seat class.
+    """
     class_cost = 1
     if seat_class == "Economy":
         class_cost = 1
@@ -41,7 +51,14 @@ def class_resolver(seat_class):
 
 
 def age_resolver(age):
-    """Check whether there's an age discount applicable."""
+    """Return the discount percentage based on the client's age.
+
+    Args:
+        age (int): The client's age.
+
+    Returns:
+        int: The discount percentage based on the client's age.
+    """
     age_discount = 0
     if age <= 18:
         age_discount = 15
@@ -53,7 +70,15 @@ def age_resolver(age):
 
 
 def final_cost_resolver(info, cost_info):
-    """Calculate the final cost of the flight."""
+    """Calculate the final cost after applying seat and age discounts.
+
+    Args:
+        info (dict): A dictionary containing client information.
+        cost_info (dict): A dictionary containing cost-related information.
+
+    Returns:
+        dict: The updated cost information, including the final cost.
+    """
     cost_info["cost_withclass"] = int(cost_info["init_cost"]) * float(
         cost_info["class_raise"]
     )
@@ -74,7 +99,12 @@ def final_cost_resolver(info, cost_info):
 
 
 def email(info, cost_info):
-    """Prints information in email format."""
+    """Generate a formatted email with flight details and pricing.
+
+    Args:
+        info (dict): A dictionary containing client information.
+        cost_info (dict): A dictionary containing the cost and discount information.
+    """
     print("\n")
     print("sendto: {}@example.com".format(info["name"].lower().replace(" ", "")))
     print("subject: FlightCal Daily Deal")
@@ -97,10 +127,27 @@ def email(info, cost_info):
 
 
 class XMLHandler:
+    """Class for handling reading and writing client data to an XML file.
+
+    This class provides methods for saving flight cost data, reading existing
+    client data, listing client names, and displaying client data in a table format.
+    """
+
     def __init__(self, filename="flight_data.xml"):
+        """Initialize the XMLHandler with the given filename.
+
+        Args:
+            filename (str): The name of the XML file to use (default: "flight_data.xml").
+        """
         self.filename = filename
 
     def write_to_xml(self, info, cost_info):
+        """Write client and cost data to the XML file.
+
+        Args:
+            info (dict): A dictionary containing client information.
+            cost_info (dict): A dictionary containing cost-related information.
+        """
         try:
             tree = ET.parse(self.filename)
             root = tree.getroot()
@@ -121,6 +168,15 @@ class XMLHandler:
         print(f"Data for {info['name']} saved to {self.filename}")
 
     def read_from_xml(self, client_name):
+        """Read and return data for a specific client from the XML file.
+
+        Args:
+            client_name (str): The name of the client to retrieve.
+
+        Returns:
+            tuple: A tuple containing two dictionaries (info, cost_info) for the client,
+                   or (None, None) if the client was not found.
+        """
         try:
             tree = ET.parse(self.filename)
             root = tree.getroot()
@@ -147,6 +203,11 @@ class XMLHandler:
         return None, None
 
     def list_client_names(self):
+        """List the names of all clients stored in the XML file.
+
+        Returns:
+            list: A list of client names.
+        """
         try:
             tree = ET.parse(self.filename)
             root = tree.getroot()
@@ -156,6 +217,12 @@ class XMLHandler:
             return []
 
     def display_data_as_table(self, info, cost_info):
+        """Display the client and cost information in a table format.
+
+        Args:
+            info (dict): A dictionary containing client information.
+            cost_info (dict): A dictionary containing cost-related information.
+        """
         cost_labels = {
             "init_cost": "Initial Cost ($)",
             "cost_withclass": "Cost with Class ($)",
@@ -192,11 +259,18 @@ class XMLHandler:
             total_discount_percentage = round((1 - (float(cost_info["final_cost"]) / float(cost_info["cost_withclass"]))) * 100)
             print(f"{'Total Discount (%):':<20} {total_discount_percentage:.2f}%")
         except (KeyError, ValueError, ZeroDivisionError):
-            print("Total Discount (%) could not be calculated due to missing or invalid data.")
+            print("Total Discount (%) could not be calculated.")
         
-        print("=" * 40 + "\n")
+        print("=" * 40)
+
 
 def collect_client_data():
+    """Collect and validate client data from user input.
+
+    Returns:
+        tuple: A tuple containing two dictionaries (info, cost_info) with client and cost information.
+    """
+    
     info = {
         "name": "",
         "age": "",
@@ -215,10 +289,19 @@ def collect_client_data():
     class_list = ["Economy", "Premium Economy", "Business Class", "First Class"]
     destination_list = ["Auckland", "Christchurch", "Wellington", "Queenstown", "Dunedin", "Rotorua"]
 
-    temp_name = input("\nPlease state the name of your client:\n")
-    while any(chr.isdigit() for chr in temp_name) == True:
-        temp_name = input("\nPlease Enter a Valid Name:\n")
-    info["name"] = temp_name
+
+    name_is_valid = False
+    while not name_is_valid:
+        info["name"] = input("Please enter your client's name:\n")
+        if info["name"].isalpha() and len(info["name"]) >= 2:
+            name_is_valid = True
+        else:
+            print("Name must contain at least 3 characters and only letters.")
+
+    #temp_name = input("\nPlease state the name of your client:\n")
+    #while any(chr.isdigit() for chr in temp_name) == True:
+    #    temp_name = input("\nPlease Enter a Valid Name:\n")
+    #info["name"] = temp_name
 
     temp_age = input("\nHow old is your client?\n")
     try:
@@ -300,7 +383,13 @@ def collect_client_data():
     
     return info, cost_info
 
+
 def main():
+    """Main function that runs the FlightCal program.
+
+    This function presents the user with options to enter new client data, 
+    retrieve existing client data, or clear the client data from the system.
+    """
     xml_handler = XMLHandler()
 
     print("Welcome to FlightCal!")
@@ -338,6 +427,7 @@ def main():
             print("No data present.")
     else:
         print("Invalid choice. Please restart the program.")
+
 
 if __name__ == "__main__":
     main()
