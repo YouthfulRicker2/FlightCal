@@ -12,12 +12,12 @@ To the best of my ability I have followed pep8 and pep257 styling conventions fo
 ### Project Planning
 
 To plan this project, I used Microsoft Planner (Kan-Ban Board) and a Gantt Chart in order to determine what I needed to do, and when to do it.
-[MSPlanner](images/Opera%20Snapshot_2024-11-09_164043_planner.cloud.microsoft.png)
-[GanttChart](images/Screenshot%202024-11-14%20022343.png)
+[](images/Opera%20Snapshot_2024-11-09_164043_planner.cloud.microsoft.png)
+[](images/Screenshot%202024-11-14%20022343.png)
 These helped me by allowing me to visualise my pending tasks and budget my time appropriately. 
 
 I also created a flowchart to pre-configure the structure of my program:
-[initFlowChart](images/flowchart.drawio.png)
+[](images/flowchart.drawio.png)
 
 ### Development
 
