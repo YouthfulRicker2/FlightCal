@@ -68,4 +68,5 @@ Other than that however, I think I did a pretty good job of handling my developm
 
 ## Iteration Directory
 
+Iterations and testing logs are located here:
 [IterationDir](Iterations/README.md)
