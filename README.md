@@ -7,23 +7,50 @@ This is some work for my 2024 NCEA Level 2 Digitech Class at [Wainuiomata High S
 ## Main Project (FlightCal)
 
 FlightCal is a program designed for use by Travel Agents who wish to provide their customers the cost of a next-day flight through email. The program calculates the cost of the flight using the age, destination, and class (flight-wise) of the customer as well as the amount of seats remaining, and then provides a simple copy-pastable email for the Agent to send.
-To the best of my ability I have followed pep8 and pep257 styling conventions for the python language to maximize readability and 
+To the best of my ability I have followed pep8 and pep257 styling conventions for the python language to maximize readability and convenience.
+
+### Requirements
+- Business
+    - User input validation,
+        - Makes sure the information entered is feasible and/or realistic.
+    - Selection input variables:
+        - Flight Class,
+        - Destination
+    - Numeric input variables:
+        - Age,
+        - Remaining Seats
+    - Simple customer email output,
+    - Data saving and retrieval,
+        - External file for data, i.e database,
+        - Simple user-friendly retrieval method.
+- Technical
+    - Input validation,
+    - Error-handling,
+    - Code modularity (functions, classes, etc.),
+    - External Database.
+
+### Solution Design
+
+I created a flowchart to pre-configure the structure of my program:
+[initFlowChart](images/flowchart.drawio.png)
 
 ### Project Planning
 
 To plan this project, I used Microsoft Planner (Kan-Ban Board) and a Gantt Chart in order to determine what I needed to do, and when to do it.
-[MSPlanner](images/Opera%20Snapshot_2024-11-09_164043_planner.cloud.microsoft.png)
-[GanttChart](images/Screenshot%202024-11-14%20022343.png)
-These helped me by allowing me to visualise my pending tasks and budget my time appropriately. 
 
-I also created a flowchart to pre-configure the structure of my program:
-[initFlowChart](images/flowchart.drawio.png)
+[MSPlanner](images/Opera%20Snapshot_2024-11-09_164043_planner.cloud.microsoft.png)
+
+[GanttChart](images/Screenshot%202024-11-14%20022343.png)
+
+These helped me by allowing me to visualise my pending tasks and budget my time appropriately. 
 
 ### Development
 
 During development I again used Microsoft Planner in order to track each subtask required.
 I also used GitHub as my version control utility. As you probably can tell.
 However, due to some issues with my account security and a slow response from GitHub Support I was unable to push or create commits for a long while. I still progressed further however despite this.
+
+I had gained some feedback after making iteration fcIt4, and the vast majority of it had stated that there should be a way to replay the script in order to get more done with less fuss. I then integrated that into my script for ease of use.
 
 ### Reflection
 

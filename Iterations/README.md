@@ -40,6 +40,16 @@ fcItX(yyyy.mm.dd).py
     - Email Output
     - XML Data Output
     - XML Data Retrieval
+- fcIt5(2024.11.10).py
+    - Destinations (6)
+    - Age Discounts
+    - Final Cost Output
+    - Seat-Based Cost
+    - Class Difference
+    - Email Output
+    - XML Data Output
+    - XML Data Retrieval
+    - Program Replay
 
 ## Item Descriptions
 
@@ -65,6 +75,8 @@ fcItX(yyyy.mm.dd).py
     - This takes the information you've taken about the client, and outputs it into an xml file for later retrieval.
 - XML Data Retrieval
     - This takes data within the xml file which was written earlier, and shows it to the user again in elegant formatting.
+- Program Replay
+    - This allows the user to restart the program after the work is done and complete a different task with it should they require.
 
 ## Tests
 
@@ -104,6 +116,9 @@ fcItX(yyyy.mm.dd).py
 - Data Clear Test
     - This tests my function to delete the client data, i.e the xml file.
     - I will simply press 3 at the start menu of the program to trigger the data removal, and et voila, `flight_data.xml` should cease to exist.
+- Replay Test
+    - This will test my in-built replay element.
+    - I will enter 2-3 slightly different variations on the default testing values below, and then retrieve their data on 2-3 more runs, finally ending by clearing the client data, for a maximum of 7 replays.
 
 ### Default Testing Values
 #### Name
@@ -124,13 +139,14 @@ fcItX(yyyy.mm.dd).py
 Success indicates that the iteration passed the test,
 N/A indicates that the feature wasn't implemented in that iteration.
 
-|                              |  fcIt1  |  fcIt2  |  fcIt3  |  fcIt4  |
-|------------------------------|---------|---------|---------|---------|
-| Age Boundary Test            | Success | Success | Success | Success |
-| Destination Input Error Test | Success | Success | Success | Success |
-| Algebra Test                 | Success | Success | Success | Success |
-| Class Input Error Test       |   N/A   | Success | Success | Success |
-| Name Input Correction Test   |   N/A   |   N/A   | Success | Success |
-| Remaining Seat Input Test    | Success | Success | Success | Success |
-| Data Save Test               |   N/A   |   N/A   |   N/A   | Success |
-| Data Retrieval Test          |   N/A   |   N/A   |   N/A   | Success |
+|                              |  fcIt1  |  fcIt2  |  fcIt3  |  fcIt4  |  fcIt5  |
+|------------------------------|---------|---------|---------|---------|---------|
+| Age Boundary Test            | Success | Success | Success | Success | Success |
+| Destination Input Error Test | Success | Success | Success | Success | Success |
+| Algebra Test                 | Success | Success | Success | Success | Success |
+| Class Input Error Test       |   N/A   | Success | Success | Success | Success |
+| Name Input Correction Test   |   N/A   |   N/A   | Success | Success | Success |
+| Remaining Seat Input Test    | Success | Success | Success | Success | Success |
+| Data Save Test               |   N/A   |   N/A   |   N/A   | Success | Success |
+| Data Retrieval Test          |   N/A   |   N/A   |   N/A   | Success | Success |
+| Replay Test                  |   N/A   |   N/A   |   N/A   |   N/A   | Success |

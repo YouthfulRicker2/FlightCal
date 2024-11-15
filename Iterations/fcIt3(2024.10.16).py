@@ -18,6 +18,12 @@ def base_price_resolver(destination):
         price = 300
     elif destination == "Christchurch":
         price = 220
+    elif destination == "Queenstown":
+        price = 400
+    elif destination == "Dunedin":
+        price = 360
+    elif destination == "Rotorua":
+        price = 500
     elif destination == "Wellington":
         price = 200
     return price
